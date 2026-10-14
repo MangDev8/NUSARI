@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nusari</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,400;0,500;0,600;0,800;1,800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Bagian Navbar -->
+    <nav>
+        <a href="#" class="logo-text">NUSARI</a> 
+        <ul class="nav-links">
+            <li><a href="#">Beranda</a></li>
+            <li><a href="#">Kalender</a></li>
+            <li><a href="#">Tentang</a></li>
+        </ul>
+    </nav>
+
+    <!-- Bagian Hero -->
+    <header class="hero">
+        <div class="hero-content">
+            <h1>Mendekatkan Diri pada Tuhan</h1>
+            <p>Kegiatan pura dan acara yang dilaksanakan.</p>
+            <a href="#info" class="btn-emas">Lihat Info</a>
+        </div>
+    </header>
+    
+    <!-- Bagian Galeri (Gaya Instagram Grid) -->
+    <section id="info" class="info-section">
+        <h2>Foto Kenangan</h2>
+        <p>Segala hal yang dilakukan dan perjalanan hidup</p>
+        
+        <!-- Wadah Galeri Rapat (Tanpa Celah) -->
+        <div class="galeri-rapat">
+            
+            <!-- Foto 1 -->
+            <div class="item-rapat">
+                <img src="img/keluarga.png" alt="Mawinten">
+                <div class="overlay-rapat">
+                    <span>Mawinten</span>
+                </div>
+                <!-- Data Tersembunyi untuk Lightbox (Jangan Dihapus) -->
+                <div class="data-sembunyi">
+                    <h3>Upacara Mawinten</h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+
+            <!-- Foto 2 -->
+            <div class="item-rapat">
+                <img src="img/metatah.jpg" alt="kosong">
+                <div class="overlay-rapat">
+                    <span>Upacara Metatah</span>
+                </div>
+                <div class="data-sembunyi">
+                    <h3>Generasi selanjutnya</h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+
+            <!-- Foto 3 -->
+            <div class="item-rapat">
+                <img src="link-gambar-3.jpg" alt="kosong">
+                <div class="overlay-rapat">
+                    <span>Sabar boss</span>
+                </div>
+                <div class="data-sembunyi">
+                    <h3>Masih kosong ya</h3>
+                    <p>0</p>
+                </div>
+            </div>
+            
+            <!-- Foto 4 -->
+            <div class="item-rapat">
+                <img src="link-gambar-4.jpg" alt="kosong">
+                <div class="overlay-rapat">
+                    <span>Sabar boss</span>
+                </div>
+                <div class="data-sembunyi">
+                    <h3>Masih kosong ya</h3>
+                    <p>0</p>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Tombol Menuju Halaman Tambahan (Opsional) -->
+        <!-- Jika semua foto sudah dimuat di atas, tombol ini bisa dihapus -->
+        <a href="#" class="btn-emas btn-selengkapnya">Lihat Selengkapnya</a>
+        
+    </section>
+
+    <!-- ==============================================
+         JENDELA LIGHTBOX (AWALNYA TERSEMBUNYI) 
+         ============================================== -->
+    <div id="lightbox" class="lightbox-modal sembunyi">
+        <span class="btn-tutup">&times;</span>
+        
+        <div class="lightbox-konten">
+            <!-- Gambar Full Layar -->
+            <img id="lightbox-img" src="" alt="Foto Penuh">
+            
+            <!-- Informasi & Tombol Download -->
+            <div class="lightbox-info">
+                <h3 id="lightbox-judul">Judul</h3>
+                <p id="lightbox-tanggal">Tanggal</p>
+                <!-- Tombol Unduh -->
+                <a id="lightbox-download" href="" download="Foto-Nusari.jpg" class="btn-download">Unduh Foto</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ==============================================
+         SCRIPT JAVASCRIPT KHUSUS GALERI RAPAT
+         ============================================== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            
+            // Ambil semua kotak foto bergaya rapat
+            const semuaFotoRapat = document.querySelectorAll('.item-rapat');
+            
+            // Ambil elemen Jendela Lightbox
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxJudul = document.getElementById('lightbox-judul');
+            const lightboxTanggal = document.getElementById('lightbox-tanggal');
+            const lightboxDownload = document.getElementById('lightbox-download');
+            const btnTutup = document.querySelector('.btn-tutup');
+
+            // Logika Klik Perbesar (Lightbox)
+            if (lightbox && btnTutup) {
+                semuaFotoRapat.forEach(foto => {
+                    foto.addEventListener('click', function() {
+                        
+                        // 1. Ambil URL Gambar
+                        const imgEl = this.querySelector('img');
+                        // 2. Ambil data Judul dan Tanggal dari div yang disembunyikan
+                        const judulEl = this.querySelector('.data-sembunyi h3');
+                        const tanggalEl = this.querySelector('.data-sembunyi p');
+
+                        if (imgEl) {
+                            const imgSrc = imgEl.src;
+                            const judulFoto = judulEl ? judulEl.innerText : 'Tanpa Judul';
+                            const tanggalFoto = tanggalEl ? tanggalEl.innerText : '';
+
+                            // 3. Masukkan data ke Jendela Pop-Up (Lightbox)
+                            lightboxImg.src = imgSrc;
+                            lightboxJudul.innerText = judulFoto;
+                            lightboxTanggal.innerText = tanggalFoto;
+                            lightboxDownload.href = imgSrc;
+                            
+                            // 4. Munculkan Jendela (hapus class sembunyi)
+                            lightbox.classList.remove('sembunyi');
+                        }
+                    });
+                });
+
+                // Tutup Lightbox saat tombol X diklik
+                btnTutup.addEventListener('click', function() {
+                    lightbox.classList.add('sembunyi');
+                });
+
+                // Tutup Lightbox saat area gelap di luar gambar diklik
+                lightbox.addEventListener('click', function(e) {
+                    if (e.target === lightbox) {
+                        lightbox.classList.add('sembunyi');
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
