@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Galeri Foto - Nusari</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="halaman-galeri">
+
+    <!-- Navbar Khusus -->
+    <nav class="nav-galeri">
+        <a href="index.html" class="logo-text">NUSARI</a> 
+        <ul class="nav-links">
+            <li><a href="index.html">Kembali ke Beranda</a></li>
+        </ul>
+    </nav>
+
+    <!-- Header Galeri -->
+    <header class="header-galeri">
+        <h1>Koleksi Kenangan</h1>
+        <p>Jejak langkah, pengabdian, dan momen kebersamaan yang diabadikan.</p>
+    </header>
+
+    <!-- Area Filter Kategori -->
+    <div class="filter-container">
+        <button class="btn-filter aktif" data-filter="semua">Semua Foto</button>
+        <button class="btn-filter" data-filter="upacara">Upacara</button>
+        <button class="btn-filter" data-filter="ngayah">Ngayah</button>
+        <button class="btn-filter" data-filter="kegiatan">Kegiatan</button>
+    </div>
+
+    <!-- WADAH GALERI PREMIUM -->
+    <main class="galeri-premium">
+        
+        <!-- Foto 1 (Upacara) -->
+        <div class="item-premium upacara">
+            <img src="img/keluarga.png" alt="Upacara Mawinten">
+            <div class="overlay-premium">
+                <div class="teks-premium">
+                    <h3>Upacara Mawinten</h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foto 2 (Upacara) -->
+        <div class="item-premium upacara">
+            <img src="img/metatah.jpg" alt="Upacara Metatah">
+            <div class="overlay-premium">
+                <div class="teks-premium">
+                    <h3>Upacara Metatah</h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foto 3 (Ngayah) -->
+        <div class="item-premium ngayah">
+            <img src="img/p5.jpg" alt="kosong">
+            <div class="overlay-premium">
+                <div class="teks-premium">
+                    <h3></h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foto 4 (Kegiatan) -->
+        <div class="item-premium kegiatan">
+            <img src="img/p6.jpg" alt="kosong">
+            <div class="overlay-premium">
+                <div class="teks-premium">
+                    <h3></h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Foto 5 (Upacara) -->
+        <div class="item-premium upacara">
+            <img src="img/p3.jpg" alt="Upacara Pura">
+            <div class="overlay-premium">
+                <div class="teks-premium">
+                    <h3></h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Foto 6 (Ngayah) -->
+        <div class="item-premium ngayah">
+            <img src="img/p4.jpg" alt="Upacara Pura">
+            <div class="overlay-premium">
+                <div class="teks-premium">
+                    <h3></h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Foto 7 (Kegiatan) -->
+        <div class="item-premium kegiatan">
+            <img src="img/p2.jpg" alt="Kegiatan Acara">
+            <div class="overlay-premium">
+                <div class="teks-premium">
+                    <h3></h3>
+                    <p>Oktober 2026</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- JENDELA LIGHTBOX (FULLSCREEN) -->
+    <div id="lightbox" class="lightbox-modal sembunyi">
+        <span class="btn-tutup">&times;</span>
+        <div class="lightbox-konten">
+            <img id="lightbox-img" src="" alt="Foto Full">
+            <div class="lightbox-info">
+                <h3 id="lightbox-judul">Judul</h3>
+                <p id="lightbox-tanggal">Tanggal</p>
+                <a id="lightbox-download" href="" download="Foto-Nusari.jpg" class="btn-download">Unduh Foto</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- SCRIPT LOGIKA GALERI -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const semuaFoto = document.querySelectorAll('.item-premium');
+            const tombolFilter = document.querySelectorAll('.btn-filter');
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            const lightboxJudul = document.getElementById('lightbox-judul');
+            const lightboxTanggal = document.getElementById('lightbox-tanggal');
+            const lightboxDownload = document.getElementById('lightbox-download');
+            const btnTutup = document.querySelector('.btn-tutup');
+
+            // Logika Filter Kategori
+            tombolFilter.forEach(tombol => {
+                tombol.addEventListener('click', function() {
+                    tombolFilter.forEach(t => t.classList.remove('aktif'));
+                    this.classList.add('aktif');
+                    const filter = this.getAttribute('data-filter');
+                    
+                    semuaFoto.forEach(foto => {
+                        if (filter === 'semua' || foto.classList.contains(filter)) {
+                            foto.style.display = 'block';
+                            setTimeout(() => foto.style.opacity = '1', 50);
+                        } else {
+                            foto.style.opacity = '0';
+                            setTimeout(() => foto.style.display = 'none', 300);
+                        }
+                    });
+                });
+            });
+
+            // Logika Lightbox (Klik Perbesar Gambar)
+            semuaFoto.forEach(foto => {
+                foto.addEventListener('click', function() {
+                    const imgEl = this.querySelector('img');
+                    const judulEl = this.querySelector('h3');
+                    const tanggalEl = this.querySelector('p');
+
+                    if (imgEl) {
+                        const imgSrc = imgEl.src;
+                        const judulText = (judulEl && judulEl.innerText.trim() !== '') ? judulEl.innerText : 'Dokumentasi Nusari';
+                        const tanggalText = (tanggalEl && tanggalEl.innerText.trim() !== '') ? tanggalEl.innerText : 'Oktober 2026';
+
+                        lightboxImg.src = imgSrc;
+                        lightboxJudul.innerText = judulText;
+                        lightboxTanggal.innerText = tanggalText;
+                        lightboxDownload.href = imgSrc;
+                        
+                        lightbox.classList.remove('sembunyi');
+                    }
+                });
+            });
+
+            // Tutup Lightbox saat tombol X diklik
+            btnTutup.addEventListener('click', () => lightbox.classList.add('sembunyi'));
+            
+            // Tutup Lightbox saat area gelap diklik
+            lightbox.addEventListener('click', (e) => {
+                if (e.target === lightbox) lightbox.classList.add('sembunyi');
+            });
+        });
+    </script>
+</body>
+</html>
